@@ -1,60 +1,50 @@
 package ir.jeus.client1;
 
-
-
 import java.io.*;
 import java.net.*;
 
-public class VmsClient
-{
+public class VmsClient {
 
-    private static final String HOST = "localhost";
-    private static final int PORT = 33000;
+    private static String HOST = "localhost";
+    private static int PORT = 8079;
 
-    public static void main(String[] args) throws IOException
-    {
-        Socket kkSocket = null;
+    public static void main(String[] args) throws IOException {
+        Socket server = null;
         PrintWriter out = null;
-        BufferedReader in = null;
+        BufferedReader bufferedReader = null;
 
-        try
-        {
-            kkSocket = new Socket(HOST, PORT);
-            out = new PrintWriter(kkSocket.getOutputStream(), true);
-            in = new BufferedReader(new InputStreamReader(kkSocket.getInputStream()));
-        } catch (UnknownHostException e)
-        {
-            System.err.println("Don't know about host: " + HOST);
+        try {
+            server = new Socket(HOST, PORT);
+            out = new PrintWriter(server.getOutputStream(), true);
+            bufferedReader = new BufferedReader(new InputStreamReader(server.getInputStream()));
+        } catch (UnknownHostException e) {
+            System.err.println("Don't know about host: " + HOST + ":" + PORT);
             System.exit(1);
-        } catch (IOException e)
-        {
-            System.err.println("Couldn't get I/O for the connection to: " + HOST);
+        } catch (IOException e) {
+            System.err.println("Couldn't get I/O for the connection to[" + HOST + ":" + PORT + "]");
             System.exit(1);
         }
 
         BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
-        
+
         String fromServer;
         String fromUser;
 
-        while ((fromServer = in.readLine()) != null)
-        {
+        while ((fromServer = bufferedReader.readLine()) != null) {
             System.out.println("Server: " + fromServer);
-            if (fromServer.equals("Bye."))
-            {
+            if (fromServer.equals("Bye.")) {
                 break;
             }
 
             fromUser = stdIn.readLine();
-            if (fromUser != null)
-            {
+            if (fromUser != null) {
                 System.out.println("Client: " + fromUser);
                 out.println(fromUser);
             }
         }
         out.close();
-        in.close();
+        bufferedReader.close();
         stdIn.close();
-        kkSocket.close();
+        server.close();
     }
 }

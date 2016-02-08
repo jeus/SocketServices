@@ -9,7 +9,7 @@ import java.io.DataOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.io.IOException;
-import sql.JDBCExample;
+import ir.jeus.sql.DevicelogFacade;
 
 public class MultiThreadedServer implements Runnable {
 
@@ -35,7 +35,7 @@ public class MultiThreadedServer implements Runnable {
                 System.out.println("*****Multithread******----------------------------------");
                 String str  = in.readUTF();
                 System.out.println("*****Multithread******"+str);
-                JDBCExample.insertToDB(str);
+                DevicelogFacade.insertToDB(str);
                 DataOutputStream out = new DataOutputStream(clientSocket.getOutputStream());
                 out.writeUTF("Thank you for connecting to "+ clientSocket.getLocalSocketAddress() + "\nGoodbye!");
             } catch (IOException e) {

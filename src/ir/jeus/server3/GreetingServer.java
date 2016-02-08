@@ -2,7 +2,7 @@ package ir.jeus.server3;
 
 import java.net.*;
 import java.io.*;
-import sql.JDBCExample;
+import ir.jeus.sql.DevicelogFacade;
 
 public class GreetingServer extends Thread {
 
@@ -22,7 +22,7 @@ public class GreetingServer extends Thread {
                 DataInputStream in = new DataInputStream(server.getInputStream());
                 String str = in.readUTF();
                 System.out.println(str);
-                JDBCExample.insertToDB(str);
+                DevicelogFacade.insertToDB(str);
                 DataOutputStream out = new DataOutputStream(server.getOutputStream());
                 out.writeUTF("Thank you for connecting to "+ server.getLocalSocketAddress() + "\nGoodbye!");
                 server.close();
