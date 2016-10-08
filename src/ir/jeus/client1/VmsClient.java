@@ -5,7 +5,7 @@ import java.net.*;
 
 public class VmsClient {
 
-    private static String HOST = "localhost";
+    private static String HOST = "5.220.111.237";
     private static int PORT = 8079;
 
     public static void main(String[] args) throws IOException {

@@ -38,7 +38,7 @@ public class ClientWorker implements Runnable {
                             clientSocket.getInputStream()));
             String inputLine;
             String outputLine;
-            out.println("Hi");
+            //out.println("Hi");
             while (clientSocket.isConnected()) {
                 inputLine = in.readLine();
                 if (inputLine == null) {
